@@ -283,21 +283,6 @@ GROK_API_KEY
 
 ⚠️ Never publish API keys, AWS credentials, Pinecone credentials, or other secrets directly in the repository.
 
-📸 Screenshots
-
-💬 Chatbot Interface
-
-Add a screenshot of the chatbot interface here.
-
-[ Add chatbot screenshot here ]
-
-🔎 Example Query
-
-Add a screenshot showing an example medical question and the chatbot response.
-
-[ Add example conversation screenshot here ]
-
-Tip: Screenshots make the project easier for recruiters and other developers to understand quickly.
 
 🚀 Future Improvements
 
