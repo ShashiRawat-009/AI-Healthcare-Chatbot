@@ -1,127 +1,360 @@
-# Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS
+🏥 AI Healthcare Chatbot
 
-# How to run?
-### STEPS:
+An AI-powered healthcare chatbot that uses Large Language Models (LLMs), LangChain, Pinecone, and Flask to provide context-aware responses to medical queries based on a curated medical knowledge base.
 
-Clone the repository
+⚠️ Disclaimer: This project is intended for educational and informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment.
 
-### STEP 01- Create a conda environment after opening the repository
+📌 Overview
 
-```bash
-conda create -n medibot python=3.10 -y
-```
+The AI Healthcare Chatbot is a Retrieval-Augmented Generation (RAG) based application designed to answer healthcare-related questions using information retrieved from a medical knowledge base.
 
-```bash
-conda activate medibot
-```
+Instead of relying only on the language model's general knowledge, the application retrieves relevant information from the medical knowledge base and uses that context to generate a response.
 
+🔄 How It Works
 
-### STEP 02- install the requirements
-```bash
+User Question
+      ↓
+Flask Web Application
+      ↓
+Question Processing
+      ↓
+Pinecone Vector Search
+      ↓
+Relevant Medical Information
+      ↓
+LangChain RAG Pipeline
+      ↓
+Large Language Model
+      ↓
+Context-Aware Response
+      ↓
+User
+
+✨ Features
+
+💬 Interactive healthcare chatbot
+
+🧠 Large Language Model integration
+
+🔎 Retrieval-Augmented Generation (RAG)
+
+📚 Medical knowledge-base integration
+
+🗂️ Document embeddings and vector search
+
+⚡ Pinecone vector database
+
+🔗 LangChain-based retrieval pipeline
+
+🌐 Flask web application
+
+🐳 Docker support
+
+☁️ AWS deployment configuration
+
+🔄 GitHub Actions CI/CD workflow
+
+🛠️ Tech Stack
+
+Technology
+
+Purpose
+
+Python
+
+Core programming language
+
+Flask
+
+Web application framework
+
+LangChain
+
+RAG and LLM orchestration
+
+Pinecone
+
+Vector database and similarity search
+
+LLM
+
+Natural-language response generation
+
+HTML/CSS/JavaScript
+
+Frontend interface
+
+Docker
+
+Containerization
+
+AWS EC2
+
+Cloud deployment
+
+Amazon ECR
+
+Docker image registry
+
+GitHub Actions
+
+CI/CD automation
+
+📂 Project Structure
+
+AI-Healthcare-Chatbot/
+│
+├── .github/
+│   └── workflows/
+│
+├── data/
+│   └── medical_chatbot/
+│
+├── research/
+│   └── trials.ipynb
+│
+├── src/
+│   ├── helper.py
+│   └── prompt.py
+│
+├── static/
+│
+├── templates/
+│   └── chat.html
+│
+├── app.py
+├── store_index.py
+├── requirements.txt
+├── setup.py
+├── Dockerfile
+├── LICENSE
+├── README.md
+└── .gitignore
+
+⚙️ Installation & Setup
+
+1. Clone the Repository
+
+git clone https://github.com/ShashiRawat-009/AI-Healthcare-Chatbot.git
+
+Navigate into the project:
+
+cd AI-Healthcare-Chatbot
+
+2. Create a Virtual Environment
+
+You can use Python's built-in virtual environment:
+
+python -m venv venv
+
+Windows
+
+venv\Scripts\activate
+
+Linux / macOS
+
+source venv/bin/activate
+
+3. Install Dependencies
+
 pip install -r requirements.txt
-```
 
+🔐 Environment Variables
 
-### Create a `.env` file in the root directory and add your Pinecone & openai credentials as follows:
+Create a .env file in the root directory of the project.
 
-```ini
-PINECONE_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-GROK_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-```
+Example:
 
+PINECONE_API_KEY="your_pinecone_api_key"
+GROK_API_KEY="your_grok_api_key"
 
-```bash
-# run the following command to store embeddings to pinecone
+Important: Use the exact environment-variable names required by your application code.
+
+Never commit your .env file to GitHub.
+
+The .gitignore file should prevent environment files and local virtual environments from being uploaded.
+
+🗃️ Create / Store the Vector Index
+
+Before running the chatbot, generate and store the document embeddings in Pinecone:
+
 python store_index.py
-```
 
-```bash
-# Finally run the following command
+This prepares the medical knowledge base for vector-based retrieval.
+
+▶️ Run the Application
+
+Start the Flask application:
+
 python app.py
-```
 
-Now,
-```bash
-open up localhost:
-```
+Then open the local URL shown in your terminal, typically:
 
+http://127.0.0.1:5000
 
-### Techstack Used:
+You can then interact with the healthcare chatbot through the web interface.
 
-- Python
-- LangChain
-- Flask
-- GPT
-- Pinecone
+🧠 RAG Architecture
 
+The project follows a Retrieval-Augmented Generation (RAG) architecture.
 
+1. Knowledge Base
 
-# AWS-CICD-Deployment-with-Github-Actions
+Medical information is stored as source documents.
 
-## 1. Login to AWS console.
+2. Document Processing
 
-## 2. Create IAM user for deployment
+The source documents are processed and prepared for retrieval.
 
-	#with specific access
+3. Embeddings
 
-	1. EC2 access : It is virtual machine
+The processed document content is converted into vector representations.
 
-	2. ECR: Elastic Container registry to save your docker image in aws
+4. Pinecone
 
+The vectors are stored in Pinecone, enabling similarity-based searches.
 
-	#Description: About the deployment
+5. Retrieval
 
-	1. Build docker image of the source code
+When a user asks a question, the system searches the vector database for relevant information.
 
-	2. Push your docker image to ECR
+6. LLM Response
 
-	3. Launch Your EC2 
+The retrieved context is passed through the LangChain pipeline to help generate the final response.
 
-	4. Pull Your image from ECR in EC2
+🐳 Docker
 
-	5. Lauch your docker image in EC2
+The project includes a Dockerfile for containerizing the application.
 
-	#Policy:
+Build the Docker image:
 
-	1. AmazonEC2ContainerRegistryFullAccess
+docker build -t ai-healthcare-chatbot .
 
-	2. AmazonEC2FullAccess
+Run the container:
 
-	
-## 3. Create ECR repo to store/save docker image
-    - Save the URI: 315865595366.dkr.ecr.us-east-1.amazonaws.com/medicalbot
+docker run -p 5000:5000 ai-healthcare-chatbot
 
-	
-## 4. Create EC2 machine (Ubuntu) 
+Then open:
 
-## 5. Open EC2 and Install docker in EC2 Machine:
-	
-	
-	#optinal
+http://localhost:5000
 
-	sudo apt-get update -y
+☁️ AWS Deployment
 
-	sudo apt-get upgrade
-	
-	#required
+The repository also contains GitHub Actions configuration for deployment-related automation.
 
-	curl -fsSL https://get.docker.com -o get-docker.sh
+The deployment architecture can be summarized as:
 
-	sudo sh get-docker.sh
+GitHub Repository
+       ↓
+GitHub Actions
+       ↓
+Build Docker Image
+       ↓
+Amazon ECR
+       ↓
+AWS EC2
+       ↓
+Run Docker Container
+       ↓
+Healthcare Chatbot
 
-	sudo usermod -aG docker ubuntu
+AWS Services
 
-	newgrp docker
-	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
+Amazon EC2 — application hosting
 
+Amazon ECR — Docker image storage
 
-# 7. Setup github secrets:
+IAM — access management
 
-   - AWS_ACCESS_KEY_ID
-   - AWS_SECRET_ACCESS_KEY
-   - AWS_DEFAULT_REGION
-   - ECR_REPO
-   - PINECONE_API_KEY
-   - OPENAI_API_KEY
+GitHub Actions — CI/CD automation
+
+🔑 GitHub Actions Secrets
+
+Deployment credentials should be configured through GitHub Repository Secrets rather than being written directly into source code.
+
+Typical secrets include:
+
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_DEFAULT_REGION
+ECR_REPO
+PINECONE_API_KEY
+GROK_API_KEY
+
+⚠️ Never publish API keys, AWS credentials, Pinecone credentials, or other secrets directly in the repository.
+
+📸 Screenshots
+
+💬 Chatbot Interface
+
+Add a screenshot of the chatbot interface here.
+
+[ Add chatbot screenshot here ]
+
+🔎 Example Query
+
+Add a screenshot showing an example medical question and the chatbot response.
+
+[ Add example conversation screenshot here ]
+
+Tip: Screenshots make the project easier for recruiters and other developers to understand quickly.
+
+🚀 Future Improvements
+
+Possible future improvements include:
+
+🔐 User authentication
+
+💾 Conversation history
+
+🧑‍⚕️ Medical-professional integration
+
+📱 Improved responsive design
+
+🎙️ Voice-based interaction
+
+🌍 Multilingual support
+
+📊 Chat analytics
+
+🛡️ Enhanced medical safety and response validation
+
+☁️ Improved cloud deployment and monitoring
+
+📚 Learning Outcomes
+
+Through this project, I explored and implemented:
+
+Retrieval-Augmented Generation (RAG)
+
+Large Language Model integration
+
+Vector databases
+
+Semantic search
+
+LangChain
+
+Flask application development
+
+Docker containerization
+
+AWS deployment concepts
+
+GitHub Actions and CI/CD
+
+Environment and API-key management
+
+👩‍💻 Author
+
+Shashi Rawat
+
+GitHub: ShashiRawat-009
+
+Project Repository: AI Healthcare Chatbot
+
+⚠️ Medical Disclaimer
+
+This chatbot is a software/academic project and is not intended to provide medical diagnosis, treatment, or professional medical advice.
+
+Always consult a qualified healthcare professional for medical concerns.
